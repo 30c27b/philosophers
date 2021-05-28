@@ -1,0 +1,12 @@
+# filesystems & temporary files
+.DS_Store
+*.swp
+*~
+
+# IDEs
+.vscode/
+
+# builds
+*.[a;o]
+/philo_one/philo_one
+/philo_two/philo_two
