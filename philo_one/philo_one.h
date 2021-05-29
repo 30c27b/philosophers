@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 21:40:38 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/28 22:22:50 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/05/29 11:05:18 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // pthread_mutex_destroy(), pthread_mutex_lock(), pthread_mutex_unlock()
 # include <pthread.h>
 
-typedef size_t	t_msecs;
+typedef uint64_t	t_msecs;
 
 typedef struct s_rules
 {
@@ -48,9 +48,10 @@ typedef struct s_rules
 
 typedef enum e_status
 {
-	EATING,
-	THINKING,
-	SLEEPING
+	NOACTION=0,
+	EATING=1,
+	THINKING=2,
+	SLEEPING=3
 }	t_status;
 
 typedef enum e_action
@@ -62,24 +63,40 @@ typedef enum e_action
 	DIED = 4
 }	t_action;
 
-typedef struct s_philosopher
+typedef struct s_philo
 {
 	size_t		id;
+	pthread_t	tid;
 	t_status	current_status;
 	size_t		number_of_meals;
 	t_msecs		last_meal;
+	size_t		number_of_sleeps;
 	t_msecs		last_sleep;
-}	t_philosopher;
+}	t_philo;
+
+typedef struct s_fork
+{
+	pthread_mutex_t	mutex;
+}	t_fork;
 
 typedef struct s_game
 {
 	t_rules			rules;
 	t_msecs			start_time;
-	t_philosopher	*philosophers;
+	size_t			n_philos;
+	t_philo			*philos;
+	size_t			n_forks;
+	pthread_mutex_t	*forks;
 }	t_game;
 
-t_rules	philo_parse_params(int argc, char **argv);
+int		params_parse(t_rules *rules, int argc, char **argv);
 
-t_msecs	philo_time(void);
+t_msecs	time_now(void);
+
+int		game_start(t_game *game);
+
+t_philo	philo_init(size_t id);
+
+void	log_action(t_game game, t_philo *philo, t_action action);
 
 #endif

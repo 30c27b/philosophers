@@ -1,22 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 22:12:29 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/29 10:52:04 by ancoulon         ###   ########.fr       */
+/*   Created: 2021/05/29 10:23:44 by ancoulon          #+#    #+#             */
+/*   Updated: 2021/05/29 10:46:28 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
-#include <sys/time.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
 
-t_msecs	tim_now(void)
+t_philo	philo_init(size_t id)
 {
-	struct timeval	tv;
+	t_philo	philo;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000UL) + (tv.tv_usec / 1000));
+	memset(&philo, 0, sizeof(t_philo));
+	philo.id = id;
+	return (philo);
+}
+
+int	philo_start(t_philo *philo)
+{
+	int	ret;
+
+	ret = pthread_create(&(philo->tid), NULL, &philo_lifecycle, NULL);
+	if (ret)
+		return (1);
+	return (0);
+}
+
+void	*philo_lifecycle(void *arg)
+{
+	(void)arg;
+	return (NULL);
 }
