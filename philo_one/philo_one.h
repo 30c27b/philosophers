@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 21:40:38 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/29 11:05:18 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/05/29 18:01:21 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ typedef struct s_rules
 
 typedef enum e_status
 {
-	NOACTION=0,
-	EATING=1,
-	THINKING=2,
-	SLEEPING=3
+	STS_NONE=0,
+	STS_EATING=1,
+	STS_THINKING=2,
+	STS_SLEEPING=3
 }	t_status;
 
 typedef enum e_action
 {
-	FORK = 0,
-	EATING = 1,
-	THINKING = 2,
-	SLEEPING = 3,
-	DIED = 4
+	ACT_FORK = 0,
+	ACT_EATING = 1,
+	ACT_THINKING = 2,
+	ACT_SLEEPING = 3,
+	ACT_DIED = 4
 }	t_action;
 
 typedef struct s_philo
@@ -76,6 +76,7 @@ typedef struct s_philo
 
 typedef struct s_fork
 {
+	size_t			num;
 	pthread_mutex_t	mutex;
 }	t_fork;
 
@@ -83,20 +84,34 @@ typedef struct s_game
 {
 	t_rules			rules;
 	t_msecs			start_time;
+	pthread_mutex_t	philo_died;
 	size_t			n_philos;
-	t_philo			*philos;
+	t_philo			**philos;
 	size_t			n_forks;
-	pthread_mutex_t	*forks;
+	t_fork			**forks;
 }	t_game;
+
+typedef struct s_philo_args
+{
+	t_game	*game;
+	t_philo	*me;
+}	t_philo_args;
 
 int		params_parse(t_rules *rules, int argc, char **argv);
 
 t_msecs	time_now(void);
 
+void	log_action(t_game *game, t_philo *philo, t_action action);
+
+t_game	*game_new(t_rules rules);
 int		game_start(t_game *game);
 
-t_philo	philo_init(size_t id);
+t_philo	*philo_new(size_t id);
+int		philo_start(t_philo *philo, t_game *game);
 
-void	log_action(t_game game, t_philo *philo, t_action action);
+t_fork	*fork_new(size_t num);
+int		fork_start(t_fork *fork);
+
+int	philo_action_eat(t_philo *philo, t_game *game);
 
 #endif
