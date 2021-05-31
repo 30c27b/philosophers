@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 21:40:28 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/29 11:58:19 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:02:41 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ int	main(int argc, char **argv)
 	err = game_start(game);
 	if (err)
 		return (1);
+	game_wait_until_over(game);
+	game_end(game);
 	return (0);
 }

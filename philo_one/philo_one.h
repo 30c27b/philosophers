@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 21:40:38 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/29 18:01:21 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:02:34 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_game
 {
 	t_rules			rules;
 	t_msecs			start_time;
+	int				is_over;
 	pthread_mutex_t	philo_died;
 	size_t			n_philos;
 	t_philo			**philos;
@@ -105,6 +106,8 @@ void	log_action(t_game *game, t_philo *philo, t_action action);
 
 t_game	*game_new(t_rules rules);
 int		game_start(t_game *game);
+void	game_end(t_game *game);
+void	game_wait_until_over(t_game *game);
 
 t_philo	*philo_new(size_t id);
 int		philo_start(t_philo *philo, t_game *game);
@@ -113,5 +116,8 @@ t_fork	*fork_new(size_t num);
 int		fork_start(t_fork *fork);
 
 int	philo_action_eat(t_philo *philo, t_game *game);
+int	philo_action_think(t_philo *philo, t_game *game);
+int	philo_action_sleep(t_philo *philo, t_game *game);
+
 
 #endif

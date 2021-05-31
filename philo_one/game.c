@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:22:24 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/29 15:41:27 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:13:24 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,48 @@ int	game_start(t_game *game)
 		i++;
 	}
 	return (0);
+}
+
+void	game_wait_until_over(t_game *game)
+{
+	size_t	i;
+	size_t	sated_philos;
+
+	while (!game->is_over)
+	{
+		i = 0;
+		sated_philos = 0;
+		while (i < game->n_philos)
+		{
+			if ((game->philos[i]->last_meal - time_now()) >= game->rules.time_to_die)
+			{
+				log_action(game, game->philos[i], ACT_DIED);
+				game->is_over = 1;
+				return ;
+			}
+			if (game->rules.number_of_times_each_philosopher_must_eat > 0
+				&& game->philos[i]->number_of_meals >=
+				(size_t)game->rules.number_of_times_each_philosopher_must_eat)
+				sated_philos++;
+			i++;
+			usleep(10);
+		}
+		if (sated_philos >= game->n_philos)
+		{
+			game->is_over = 1;
+			return ;
+		}
+	}
+}
+
+void	game_end(t_game *game)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < game->n_philos)
+	{
+		pthread_join(game->philos[i]->tid, NULL);
+		i++;
+	}
 }
