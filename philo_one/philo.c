@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:23:44 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/31 15:59:02 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/06/03 13:23:38 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	*philo_lifecycle(void *arg)
 
 	game = ((t_philo_args *)arg)->game;
 	philo = ((t_philo_args *)arg)->me;
-	// log_action(game, philo, ACT_THINKING);
-	while (!game->is_over)
+	while (game->status == GS_STARTED)
 	{
 		philo_action_eat(philo, game);
 		philo_action_sleep(philo, game);

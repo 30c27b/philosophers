@@ -6,7 +6,7 @@
 /*   By: ancoulon <ancoulon@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:22:24 by ancoulon          #+#    #+#             */
-/*   Updated: 2021/05/31 16:13:24 by ancoulon         ###   ########.fr       */
+/*   Updated: 2021/06/03 13:27:49 by ancoulon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_game	*game_new(t_rules rules)
 	game = malloc(sizeof(t_game));
 	if (game == NULL)
 		return (NULL);
+	game->status = GS_WAITING;
 	game->rules = rules;
 	game->n_philos = rules.number_of_philosophers;
 	game->philos = malloc(sizeof(t_philo *) * game->n_philos);
@@ -46,6 +47,8 @@ t_game	*game_new(t_rules rules)
 		if (game->forks[i] == NULL)
 			return (NULL);
 	}
+	if (pthread_mutex_init(&(game->logging), NULL) != 0)
+		return (NULL);
 	return (game);
 }
 
@@ -71,6 +74,7 @@ int	game_start(t_game *game)
 			return (1);
 		i++;
 	}
+	game->status = GS_STARTED;
 	return (0);
 }
 
@@ -79,16 +83,16 @@ void	game_wait_until_over(t_game *game)
 	size_t	i;
 	size_t	sated_philos;
 
-	while (!game->is_over)
+	while (game->status == GS_STARTED)
 	{
 		i = 0;
 		sated_philos = 0;
 		while (i < game->n_philos)
 		{
-			if ((game->philos[i]->last_meal - time_now()) >= game->rules.time_to_die)
+			if ((time_now() - game->philos[i]->last_meal) >= game->rules.time_to_die)
 			{
 				log_action(game, game->philos[i], ACT_DIED);
-				game->is_over = 1;
+				game->status = GS_ENDED;
 				return ;
 			}
 			if (game->rules.number_of_times_each_philosopher_must_eat > 0
@@ -100,7 +104,7 @@ void	game_wait_until_over(t_game *game)
 		}
 		if (sated_philos >= game->n_philos)
 		{
-			game->is_over = 1;
+			game->status = GS_ENDED;
 			return ;
 		}
 	}
