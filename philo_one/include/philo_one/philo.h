@@ -1,6 +1,7 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# include "philo_one/fork.h"
 # include "philo_one/time.h"
 # include <stddef.h>
 # include <pthread.h>
@@ -33,6 +34,8 @@ typedef struct s_philo
 	t_msecs			last_meal;
 	size_t			number_of_sleeps;
 	t_msecs			last_sleep;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 }	t_philo;
 
 typedef struct s_philo_args
@@ -41,11 +44,13 @@ typedef struct s_philo_args
 	t_philo	*self;
 }	t_philo_args;
 
-t_philo	*philo_new(size_t id);
+t_philo	*philo_new(size_t id, t_fork *left_fork, t_fork *right_fork);
 
 int		philo_start(t_philo *self, t_game *game);
 
 void	*philo_lifecycle(void *arg);
+
+void	philo_terminate(t_philo *self);
 
 void	philo_destroy(t_philo *self);
 

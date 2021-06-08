@@ -13,6 +13,6 @@ typedef struct s_rules
 	ssize_t	number_of_times_each_philosopher_must_eat;
 }	t_rules;
 
-t_rules	rules_parse(int argc, char** argv);
+int	rules_parse(t_rules *rules, int argc, char** argv);
 
 #endif

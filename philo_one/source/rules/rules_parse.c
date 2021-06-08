@@ -17,39 +17,46 @@ static int	only_digits(char *str)
 	return (0);
 }
 
-static int64_t	parse_number(char *str, uint64_t *number)
+static uint64_t	parse_number(char *str, int *err)
 {
 	uint64_t	ret;
 	
 	if (only_digits(str) < 0)
-		return (-1);
+	{
+		*err = -1;
+		return (0);
+	}
 	ret = utils_strtoul(str);
 	if (ret > INT_MAX)
-		return (-1);
-	
+	{
+		*err = -1;
+		return (0);
+	}
+	*err = 0;
+	return (ret);
 }
 
 int	rules_parse(t_rules *rules, int argc, char **argv)
 {
-	uint64_t	number;
+	int			err;
 
-	if (parse_number(argv[1], &number))
-		return (1);
-	rules->number_of_philosophers = (size_t)number;
-	if (parse_number(argv[2], &number))
-		return (1);
-	rules->time_to_die = (t_msecs)number;
-	if (parse_number(argv[3], &number))
-		return (1);
-	rules->time_to_eat = (t_msecs)number;
-	if (parse_number(argv[4], &number))
-		return (1);
-	rules->time_to_sleep = (t_msecs)number;
+	rules->number_of_philosophers = parse_number(argv[1], &err);
+	if (err)
+		return (err);
+	rules->time_to_die = parse_number(argv[1], &err);
+	if (err)
+		return (err);
+	rules->time_to_eat = parse_number(argv[1], &err);
+	if (err)
+		return (err);
+	rules->time_to_sleep = parse_number(argv[1], &err);
+	if (err)
+		return (err);
 	if (argc == 6)
 	{
-		if (parse_number(argv[4], &number))
-			return (1);
-		rules->number_of_times_each_philosopher_must_eat = (ssize_t)number;
+		rules->number_of_times_each_philosopher_must_eat = parse_number(argv[1], &err);
+		if (err)
+			return (err);
 	}
 	else
 		rules->number_of_times_each_philosopher_must_eat = -1;

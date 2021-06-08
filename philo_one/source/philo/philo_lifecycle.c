@@ -10,10 +10,10 @@ void	*philo_lifecycle(void *arg)
 
 	game = ((t_philo_args *)arg)->game;
 	self = ((t_philo_args *)arg)->self;
+	printf("philo id %zu\n", self->id);
 	action_log(ACTION_WAITING, self, game);
 	while (game->status == GS_RUNNING)
 	{
 	}
-	printf("Philo %zu: Done\n", self->id);
 	return (NULL);
 }

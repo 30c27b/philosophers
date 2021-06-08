@@ -29,4 +29,6 @@ typedef struct s_game
 
 t_game	*game_new(t_rules rules);
 
+int		game_start(t_game *self);
+
 #endif
