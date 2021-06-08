@@ -1,42 +1,53 @@
 #include "philo_one/rules.h"
+#include "philo_one/utils.h"
 #include <limits.h>
 #include <fcntl.h>
 
-static int	str2ul(char *string, uint64_t *number)
+static int	only_digits(char *str)
 {
 	size_t	i;
 
 	i = 0;
-	*number = 0;
-	while (string[i])
+	while (str[i])
 	{
-		if (string[i] < '0' || string[i] > '9')
-			return (1);
-		*number = (*number * 10) + (string[i] - '0');
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-int	params_parse(t_rules *rules, int argc, char **argv)
+static int64_t	parse_number(char *str, uint64_t *number)
+{
+	uint64_t	ret;
+	
+	if (only_digits(str) < 0)
+		return (-1);
+	ret = utils_strtoul(str);
+	if (ret > INT_MAX)
+		return (-1);
+	
+}
+
+int	rules_parse(t_rules *rules, int argc, char **argv)
 {
 	uint64_t	number;
 
-	if (str2ul(argv[1], &number))
+	if (parse_number(argv[1], &number))
 		return (1);
 	rules->number_of_philosophers = (size_t)number;
-	if (str2ul(argv[2], &number))
+	if (parse_number(argv[2], &number))
 		return (1);
 	rules->time_to_die = (t_msecs)number;
-	if (str2ul(argv[3], &number))
+	if (parse_number(argv[3], &number))
 		return (1);
 	rules->time_to_eat = (t_msecs)number;
-	if (str2ul(argv[4], &number))
+	if (parse_number(argv[4], &number))
 		return (1);
 	rules->time_to_sleep = (t_msecs)number;
 	if (argc == 6)
 	{
-		if (str2ul(argv[4], &number))
+		if (parse_number(argv[4], &number))
 			return (1);
 		rules->number_of_times_each_philosopher_must_eat = (ssize_t)number;
 	}

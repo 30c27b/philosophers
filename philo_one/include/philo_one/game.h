@@ -6,6 +6,7 @@
 # include "philo_one/time.h"
 # include "philo_one/fork.h"
 # include "philo_one/philo.h"
+# include "philo_one/rules.h"
 
 typedef enum e_game_status
 {
@@ -15,6 +16,7 @@ typedef enum e_game_status
 
 typedef struct s_game
 {
+	t_rules			rules;
 	t_msecs			start_time;
 	t_game_status	status;
 	pthread_mutex_t	logging;
@@ -25,6 +27,6 @@ typedef struct s_game
 	t_fork			**forks;
 }	t_game;
 
-t_game	*game_new(void);
+t_game	*game_new(t_rules rules);
 
 #endif

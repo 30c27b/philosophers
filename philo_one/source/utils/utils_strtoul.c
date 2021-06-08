@@ -16,7 +16,8 @@ uint64_t utils_strtoul(char *str)
 	{
 		if (str[i] < '0' || str[i] > '9')
 			break;
-		if (err < 0 || num > STUL_CUTOFF || (num == STUL_CUTOFF && str[i] > STUL_CUTLIM))
+		if (err < 0 || num > STUL_CUTOFF ||
+			(num == STUL_CUTOFF && (uint64_t)(str[i]) > STUL_CUTLIM))
 			err = -1;
 		else
 		{
