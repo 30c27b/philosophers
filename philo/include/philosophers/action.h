@@ -19,6 +19,8 @@ void	action_log(t_action action, t_philo *target, t_game *game);
 
 void	action_run(t_action action, t_philo *target, t_game *game);
 
-void	action_fork(t_game *philo, t_philo * target);
+void	action_fork(t_game *game, t_philo * target);
+
+void	action_eat(t_game *game, t_philo *target);
 
 #endif

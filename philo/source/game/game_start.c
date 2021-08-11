@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
 
 static int start_philos(t_game *game)
 {
@@ -18,6 +20,7 @@ static int start_philos(t_game *game)
 			return (-1);
 		i += 2;
 	}
+	time_sleep(1);
 	i = 1;
 	while (i < (game->n_philos))
 	{

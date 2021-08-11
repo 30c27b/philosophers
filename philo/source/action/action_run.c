@@ -4,7 +4,7 @@
 
 void	action_run(t_action action, t_philo *target, t_game *game)
 {
-	static void (*actions[5])(t_game *, t_philo *) = {NULL, NULL,
+	static void (*actions[5])(t_game *, t_philo *) = {&action_fork, &action_eat,
 		NULL, NULL, NULL};
 
 	actions[action](game, target);
