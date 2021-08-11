@@ -38,7 +38,7 @@ static int	create_philos(t_game *game)
 	while (i < game->n_philos)
 	{
 		if (i == game->n_philos - 1)
-			right_fork = 0;
+			right_fork = game->forks[0];
 		else
 			right_fork = game->forks[i + 1];
 		game->philos[i] = philo_new(i + 1, game->forks[i], right_fork);

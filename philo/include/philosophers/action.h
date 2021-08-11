@@ -8,8 +8,8 @@ typedef enum e_action
 {
 	ACTION_FORK = 0,
 	ACTION_EATING = 1,
-	ACTION_THINKING = 2,
-	ACTION_SLEEPING = 3,
+	ACTION_SLEEPING = 2,
+	ACTION_THINKING = 3,
 	ACTION_DIED = 4
 }	t_action;
 
@@ -22,5 +22,7 @@ void	action_run(t_action action, t_philo *target, t_game *game);
 void	action_fork(t_game *game, t_philo * target);
 
 void	action_eat(t_game *game, t_philo *target);
+
+void	action_sleep(t_game *game, t_philo *target);
 
 #endif

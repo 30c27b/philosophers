@@ -14,10 +14,10 @@ void	*philo_lifecycle(void *arg)
 	free(arg);
 	while (game->status == GS_RUNNING)
 	{
-		// pthread_mutex_lock(&(self->left_fork->mutex));
+		action_run(ACTION_FORK, self, game);
 		action_run(ACTION_EATING, self, game);
-		// pthread_mutex_unlock(&(self->left_fork->mutex));
-		time_sleep(1000);
+		action_run(ACTION_SLEEPING, self, game);
+		while (1) {}
 	}
 	return (NULL);
 }
