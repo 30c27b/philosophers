@@ -45,24 +45,24 @@ static void terminate_philos(t_game *game)
 
 int	game_start(t_game *self)
 {
-	// size_t	i;
+	size_t	i;
 
 	self->start_time = time_now();
 	if (start_philos(self) < 0)
 		return (-1);
 	while (self->status == GS_RUNNING)
 	{
-		// i = 0;
-		// while (i < self->n_philos)
-		// {
-		// 	if ((time_now() - self->philos[i]->last_meal) > self->rules.time_to_die)
-		// 	{
-		// 		action_log(ACTION_DIED, self->philos[i], self);
-		// 		self->status = GS_OVER;
-		// 		break;
-		// 	}
-		// 	i++;
-		// }
+		i = 0;
+		while (i < self->n_philos)
+		{
+			if ((time_now() - self->philos[i]->last_meal) > self->rules.time_to_die)
+			{
+				action_log(ACTION_DIED, self->philos[i], self);
+				self->status = GS_OVER;
+				break;
+			}
+			i++;
+		}
 	}
 	terminate_philos(self);
 	return (0);
