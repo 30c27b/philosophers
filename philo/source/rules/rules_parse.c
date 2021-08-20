@@ -45,18 +45,18 @@ int	rules_parse(t_rules *rules, int argc, char **argv)
 	rules->number_of_philosophers = parse_number(argv[1], &err);
 	if (err)
 		return (err);
-	rules->time_to_die = parse_number(argv[1], &err);
+	rules->time_to_die = parse_number(argv[2], &err);
 	if (err)
 		return (err);
-	rules->time_to_eat = parse_number(argv[1], &err);
+	rules->time_to_eat = parse_number(argv[3], &err);
 	if (err)
 		return (err);
-	rules->time_to_sleep = parse_number(argv[1], &err);
+	rules->time_to_sleep = parse_number(argv[4], &err);
 	if (err)
 		return (err);
 	if (argc == 6)
 	{
-		rules->number_of_times_each_philosopher_must_eat = parse_number(argv[1], &err);
+		rules->number_of_times_each_philosopher_must_eat = parse_number(argv[5], &err);
 		if (err)
 			return (err);
 	}

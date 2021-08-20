@@ -61,6 +61,11 @@ int	game_start(t_game *self)
 				self->status = GS_OVER;
 				break;
 			}
+			if (self->rules.number_of_times_each_philosopher_must_eat >= 0 && self->philos[i]->number_of_meals >= (size_t)self->rules.number_of_times_each_philosopher_must_eat)
+			{
+				self->status = GS_OVER;
+				break;
+			}
 			i++;
 		}
 	}
