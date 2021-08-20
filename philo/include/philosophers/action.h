@@ -25,4 +25,6 @@ void	action_eat(t_game *game, t_philo *target);
 
 void	action_sleep(t_game *game, t_philo *target);
 
+void	action_think(t_game *game, t_philo * target);
+
 #endif

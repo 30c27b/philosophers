@@ -17,6 +17,7 @@ void	*philo_lifecycle(void *arg)
 		action_run(ACTION_FORK, self, game);
 		action_run(ACTION_EATING, self, game);
 		action_run(ACTION_SLEEPING, self, game);
+		action_run(ACTION_THINKING, self, game);
 	}
 	return (NULL);
 }
