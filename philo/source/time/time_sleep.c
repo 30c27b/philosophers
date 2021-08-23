@@ -1,11 +1,15 @@
 #include "philosophers/time.h"
 #include <unistd.h>
+#include <stdint.h>
 
 void	time_sleep(t_msecs msecs)
 {
-	while (msecs > 0)
+	t_msecs	endt;
+
+	endt = time_now() + msecs;
+	usleep(msecs / 2);
+	while (time_now() < endt)
 	{
-		usleep(1000);
-		msecs--;
+		usleep(50);
 	}
 }

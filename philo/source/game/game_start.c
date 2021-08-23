@@ -19,14 +19,16 @@ static int start_philos(t_game *game)
 		if (philo_start(game->philos[i], game) < 0)
 			return (-1);
 		i += 2;
+		usleep(20);
 	}
-	time_sleep(1);
+	usleep(100);
 	i = 1;
 	while (i < (game->n_philos))
 	{
 		if (philo_start(game->philos[i], game) < 0)
 			return (-1);
 		i += 2;
+		usleep(20);
 	}
 	return (0);
 }
@@ -58,7 +60,6 @@ int	game_start(t_game *self)
 			if ((time_now() - self->philos[i]->last_meal) > self->rules.time_to_die)
 			{
 				action_log(ACTION_DIED, self->philos[i], self);
-				self->status = GS_OVER;
 				break;
 			}
 			if (self->rules.number_of_times_each_philosopher_must_eat >= 0 && self->philos[i]->number_of_meals >= (size_t)self->rules.number_of_times_each_philosopher_must_eat)
@@ -68,6 +69,7 @@ int	game_start(t_game *self)
 			}
 			i++;
 		}
+		usleep(500);
 	}
 	terminate_philos(self);
 	return (0);

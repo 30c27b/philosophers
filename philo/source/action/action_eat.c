@@ -12,7 +12,6 @@ void	action_eat(t_game *game, t_philo *target)
 	target->last_meal = time_now();
 	target->number_of_meals++;
 	time_sleep(game->rules.time_to_eat);
-	target->last_meal = time_now();
 	pthread_mutex_unlock(&(target->left_fork->mutex));
 	pthread_mutex_unlock(&(target->right_fork->mutex));
 }
