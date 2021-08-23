@@ -9,3 +9,4 @@ void	action_run(t_action action, t_philo *target, t_game *game)
 
 	actions[action](game, target);
 }
+
