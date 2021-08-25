@@ -15,8 +15,14 @@ void	*philo_lifecycle(void *arg)
 	while (game->status == GS_RUNNING)
 	{
 		action_run(ACTION_FORK, self, game);
+		if (game->status != GS_RUNNING)
+			break;
 		action_run(ACTION_EATING, self, game);
+		if (game->status != GS_RUNNING)
+			break;
 		action_run(ACTION_SLEEPING, self, game);
+		if (game->status != GS_RUNNING)
+			break;
 		action_run(ACTION_THINKING, self, game);
 	}
 	return (NULL);

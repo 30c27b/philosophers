@@ -14,13 +14,18 @@ void	action_log(t_action action, t_philo *target, t_game *game)
 
 	if (game->status == GS_OVER)
 		return ;
-	elapsed = time_now() - game->start_time;
-	action_string = action_to_string(action);
 	if (action == ACTION_DIED)
 	{
 		game->status = GS_OVER;
 	}
+	elapsed = time_now() - game->start_time;
+	action_string = action_to_string(action);
 	pthread_mutex_lock(&game->logging);
+	if (game->status == GS_OVER && action != ACTION_DIED)
+	{
+		pthread_mutex_unlock(&game->logging);
+		return ;
+	}
 	utils_printnbr(elapsed);
 	write(1, " ", 1);
 	utils_printnbr(target->id);
