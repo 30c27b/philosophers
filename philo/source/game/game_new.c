@@ -1,10 +1,7 @@
-#include "philosophers/game.h"
-#include "philosophers/fork.h"
-#include "philosophers/philo.h"
+#include "philosophers.h"
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include <stdio.h>
 
 static int	create_forks(t_game *game)
 {

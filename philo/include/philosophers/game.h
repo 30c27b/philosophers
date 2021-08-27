@@ -1,8 +1,6 @@
 #ifndef GAME_H
 # define GAME_H
 
-#pragma once
-
 # include "philosophers/time.h"
 # include "philosophers/fork.h"
 # include "philosophers/philo.h"
@@ -30,5 +28,7 @@ typedef struct s_game
 t_game	*game_new(t_rules rules);
 
 int		game_start(t_game *self);
+
+void	game_destroy(t_game *self);
 
 #endif

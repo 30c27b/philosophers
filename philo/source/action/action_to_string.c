@@ -1,4 +1,4 @@
-#include "philosophers/action.h"
+#include "philosophers.h"
 
 char	*action_to_string(t_action action)
 {

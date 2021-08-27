@@ -1,10 +1,5 @@
-#include "philosophers/action.h"
-#include "philosophers/time.h"
-#include "philosophers/philo.h"
-#include "philosophers/game.h"
-#include "philosophers/utils.h"
+#include "philosophers.h"
 #include <pthread.h>
-#include <stdio.h>
 #include <unistd.h>
 
 void	action_log(t_action action, t_philo *target, t_game *game)

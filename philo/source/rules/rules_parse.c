@@ -1,5 +1,4 @@
-#include "philosophers/rules.h"
-#include "philosophers/utils.h"
+#include "philosophers.h"
 #include <limits.h>
 #include <fcntl.h>
 
@@ -20,7 +19,7 @@ static int	only_digits(char *str)
 static uint64_t	parse_number(char *str, int *err)
 {
 	uint64_t	ret;
-	
+
 	if (only_digits(str) < 0)
 	{
 		*err = -1;
@@ -40,8 +39,6 @@ int	rules_parse(t_rules *rules, int argc, char **argv)
 {
 	int	err;
 
-	if (argc < 5 || argc > 6)
-		return (-1);
 	rules->number_of_philosophers = parse_number(argv[1], &err);
 	if (err)
 		return (err);
@@ -56,7 +53,8 @@ int	rules_parse(t_rules *rules, int argc, char **argv)
 		return (err);
 	if (argc == 6)
 	{
-		rules->number_of_times_each_philosopher_must_eat = parse_number(argv[5], &err);
+		rules->number_of_times_each_philosopher_must_eat
+			= parse_number(argv[5], &err);
 		if (err)
 			return (err);
 	}

@@ -1,11 +1,9 @@
-#include "philosophers/philo.h"
-#include "philosophers/time.h"
+#include "philosophers.h"
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include <stdio.h>
 
-int		philo_start(t_philo *self, t_game *game)
+int	philo_start(t_philo *self, t_game *game)
 {
 	t_msecs			now;
 	t_philo_args	*arg;

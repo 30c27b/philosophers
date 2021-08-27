@@ -3,7 +3,7 @@
 
 # include <stdint.h>
 
-typedef uint64_t t_msecs;
+typedef uint64_t	t_msecs;
 
 t_msecs	time_now(void);
 

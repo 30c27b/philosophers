@@ -1,7 +1,4 @@
-#include "philosophers/philo.h"
-#include "philosophers/game.h"
-#include "philosophers/action.h"
-#include <stdio.h>
+#include "philosophers.h"
 #include <stdlib.h>
 
 void	*philo_lifecycle(void *arg)
@@ -14,16 +11,20 @@ void	*philo_lifecycle(void *arg)
 	free(arg);
 	while (game->status == GS_RUNNING)
 	{
-		action_run(ACTION_FORK, self, game);
-		if (game->status != GS_RUNNING)
-			break;
-		action_run(ACTION_EATING, self, game);
-		if (game->status != GS_RUNNING)
-			break;
-		action_run(ACTION_SLEEPING, self, game);
-		if (game->status != GS_RUNNING)
-			break;
-		action_run(ACTION_THINKING, self, game);
+		pthread_mutex_lock(&(self->left_fork->mutex));
+		pthread_mutex_lock(&(self->right_fork->mutex));
+		action_log(ACTION_FORK, self, game);
+		action_log(ACTION_EATING, self, game);
+		self->last_meal = time_now();
+		self->number_of_meals++;
+		if (game->status == GS_RUNNING)
+			time_sleep(game->rules.time_to_eat);
+		pthread_mutex_unlock(&(self->left_fork->mutex));
+		pthread_mutex_unlock(&(self->right_fork->mutex));
+		action_log(ACTION_SLEEPING, self, game);
+		if (game->status == GS_RUNNING)
+			time_sleep(game->rules.time_to_sleep);
+		action_log(ACTION_THINKING, self, game);
 	}
 	return (NULL);
 }

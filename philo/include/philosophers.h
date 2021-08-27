@@ -3,6 +3,8 @@
 
 # include "philosophers/utils.h"
 
+# include "philosophers/rules.h"
+
 # include "philosophers/time.h"
 
 # include "philosophers/action.h"

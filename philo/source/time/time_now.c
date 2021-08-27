@@ -1,4 +1,4 @@
-#include "philosophers/time.h"
+#include "philosophers.h"
 #include <sys/time.h>
 
 t_msecs	time_now(void)

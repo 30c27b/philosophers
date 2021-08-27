@@ -1,4 +1,4 @@
-#include "philosophers/utils.h"
+#include "philosophers.h"
 #include <unistd.h>
 
 static size_t	str_len(char *str)
