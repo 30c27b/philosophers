@@ -8,5 +8,4 @@
 
 # builds
 *.[a;o]
-/philo_one/philo_one
-/philo_two/philo_two
+/philo/philo_two
