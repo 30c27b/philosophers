@@ -13,17 +13,7 @@ static int	start_philos(t_game *game)
 	{
 		if (philo_start(game->philos[i], game) < 0)
 			return (-1);
-		i += 2;
-		usleep(20);
-	}
-	usleep(100);
-	i = 1;
-	while (i < (game->n_philos))
-	{
-		if (philo_start(game->philos[i], game) < 0)
-			return (-1);
-		i += 2;
-		usleep(20);
+		i++;
 	}
 	return (0);
 }
@@ -70,7 +60,8 @@ int	game_start(t_game *self)
 	self->start_time = time_now();
 	if (start_philos(self) < 0)
 		return (-1);
-	while (self->status == GS_RUNNING)
+	self->status = GS_RUNNING;
+	while (1)
 	{
 		if (game_should_end(self))
 			break ;

@@ -6,11 +6,7 @@
 # include "philosophers/philo.h"
 # include "philosophers/rules.h"
 
-typedef enum e_game_status
-{
-	GS_RUNNING=0,
-	GS_OVER=2
-}	t_game_status;
+# define BUFFER_LEN 300
 
 typedef struct s_game
 {
@@ -23,6 +19,8 @@ typedef struct s_game
 	t_philo			**philos;
 	size_t			n_forks;
 	t_fork			**forks;
+	size_t			buf_len;
+	char			*buffer;
 }	t_game;
 
 t_game	*game_new(t_rules rules);

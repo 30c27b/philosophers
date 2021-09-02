@@ -17,4 +17,6 @@ void	game_destroy(t_game *self)
 		philo_destroy(self->philos[i]);
 		i++;
 	}
+	free(self->buffer);
+	free(self);
 }

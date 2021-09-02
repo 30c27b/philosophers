@@ -55,7 +55,11 @@ t_game	*game_new(t_rules rules)
 		return (NULL);
 	memset(game, 0, sizeof(t_game));
 	game->rules = rules;
-	game->status = GS_RUNNING;
+	game->status = GS_STARTING;
+	game->buf_len = BUFFER_LEN;
+	game->buffer = malloc(sizeof(char) * BUFFER_LEN);
+	if (game->buffer == NULL)
+		return (NULL);
 	if (pthread_mutex_init(&(game->logging), NULL))
 		return (NULL);
 	if (pthread_mutex_init(&(game->philo_died), NULL))
