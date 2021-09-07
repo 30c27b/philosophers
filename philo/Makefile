@@ -1,6 +1,6 @@
 NAME		= philo
 
-CC			= clang -O3
+CC			= gcc -O3
 CFLAGS		= -Wall -Wextra -Werror -I include
 RM			= rm -f
 
