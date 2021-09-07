@@ -6,7 +6,7 @@
 # include "philosophers/philo.h"
 # include "philosophers/rules.h"
 
-# define BUFFER_LEN 300
+# define BUFFER_LEN 400
 
 typedef struct s_game
 {

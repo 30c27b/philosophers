@@ -14,6 +14,7 @@ static int	start_philos(t_game *game)
 		if (philo_start(game->philos[i], game) < 0)
 			return (-1);
 		i++;
+		usleep(20);
 	}
 	return (0);
 }
@@ -51,6 +52,7 @@ static int	game_should_end(t_game *self)
 			return (1);
 		}
 		i++;
+		sleep(20);
 	}
 	return (0);
 }

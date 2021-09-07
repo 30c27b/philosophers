@@ -1,6 +1,7 @@
 #include "philosophers.h"
 #include <limits.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 static int	only_digits(char *str)
 {
@@ -40,8 +41,9 @@ int	rules_parse(t_rules *rules, int argc, char **argv)
 	int	err;
 
 	rules->number_of_philosophers = parse_number(argv[1], &err);
-	if (err)
-		return (err);
+	if (err || rules->number_of_philosophers < 2
+		|| rules->number_of_philosophers > 200)
+		return (-1);
 	rules->time_to_die = parse_number(argv[2], &err);
 	if (err)
 		return (err);
