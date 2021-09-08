@@ -39,14 +39,12 @@ static int	game_should_end(t_game *self)
 	i = 0;
 	while (i < self->n_philos)
 	{
-		// printf("finished %zu\n", (size_t)self->rules.number_of_times_each_philosopher_must_eat);
 		if ((time_now() - self->philos[i]->last_meal)
 			> self->rules.time_to_die)
 		{
 			action_log(ACTION_DIED, self->philos[i], self);
 			return (1);
 		}
-		
 		if (self->rules.number_of_times_each_philosopher_must_eat
 			>= 0 && self->philos[i]->number_of_meals >= (size_t)
 			self->rules.number_of_times_each_philosopher_must_eat)
@@ -55,7 +53,6 @@ static int	game_should_end(t_game *self)
 			return (1);
 		}
 		i++;
-		usleep(100);
 	}
 	return (0);
 }
@@ -66,7 +63,7 @@ int	game_start(t_game *self)
 	if (start_philos(self) < 0)
 		return (-1);
 	self->status = GS_RUNNING;
-	while (1)
+	while (self->status == GS_RUNNING)
 	{
 		if (game_should_end(self))
 			break ;
