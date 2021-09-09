@@ -2,12 +2,12 @@
 #include <unistd.h>
 #include <stdint.h>
 
-void	time_sleep(t_msecs msecs, t_game_status *gs)
+void	time_sleep(t_msecs msecs)
 {
 	t_msecs	endt;
 
 	endt = time_now() + msecs;
-	usleep(msecs / 2);
-	while (time_now() < endt && *gs == GS_RUNNING)
-		usleep(50);
+	usleep(msecs * 0.99);
+	while (time_now() <= endt)
+		usleep(200);
 }
