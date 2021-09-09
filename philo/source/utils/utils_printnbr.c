@@ -1,18 +1,15 @@
 #include "philosophers.h"
 #include <unistd.h>
 
-void	utils_printnbr(uint64_t nbr)
+void	utils_printnbr(uint64_t nbr, char *dest, size_t	*cursor)
 {
-	char	c;
-
 	if (nbr > 9)
 	{
-		utils_printnbr(nbr / 10);
-		utils_printnbr(nbr % 10);
+		utils_printnbr(nbr / 10, dest, cursor);
+		utils_printnbr(nbr % 10, dest, cursor);
 	}
 	else
 	{
-		c = (char)nbr + '0';
-		write(1, &c, 1);
+		dest[(*cursor)++] = (char)nbr + '0';
 	}
 }

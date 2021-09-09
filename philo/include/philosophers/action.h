@@ -13,7 +13,7 @@ typedef enum e_action
 	ACTION_DIED = 4
 }	t_action;
 
-void	action_to_string(t_action action);
+char	*action_to_string(t_action action);
 
 void	action_log(t_action action, t_philo *target, t_game *game);
 
